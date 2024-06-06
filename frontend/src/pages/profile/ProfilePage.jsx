@@ -75,7 +75,7 @@ const ProfilePage = () => {
 
 	return (
 		<>
-			<div className='flex-[4_4_0]  border-r border-gray-700 min-h-screen '>
+			<div className='flex-[4_4_0] border-r border-gray-700 min-h-screen'>
 				{/* HEADER */}
 				{(isLoading || isRefetching) && <ProfileHeaderSkeleton />}
 				{!isLoading && !isRefetching && !user && <p className='text-center text-lg mt-4'>User not found</p>}
@@ -155,6 +155,7 @@ const ProfilePage = () => {
 											await updateProfile({ coverImg, profileImg });
 											setProfileImg(null);
 											setCoverImg(null);
+											refetch(); // Refetch user profile to display updated images
 										}}
 									>
 										{isUpdatingProfile ? "Updating..." : "Update"}
@@ -171,16 +172,15 @@ const ProfilePage = () => {
 
 								<div className='flex gap-2 flex-wrap'>
 									{user?.link && (
-										<div className='flex gap-1 items-center '>
+										<div className='flex gap-1 items-center'>
 											<>
 												<FaLink className='w-3 h-3 text-slate-500' />
 												<a
-													href='https://youtube.com/@asaprogrammer_'
+													href={user?.link}
 													target='_blank'
 													rel='noreferrer'
 													className='text-sm text-blue-500 hover:underline'
 												>
-													{/* Updated this after recording the video. I forgot to update this while recording, sorry, thx. */}
 													{user?.link}
 												</a>
 											</>
@@ -218,7 +218,7 @@ const ProfilePage = () => {
 								>
 									Likes
 									{feedType === "likes" && (
-										<div className='absolute bottom-0 w-10  h-1 rounded-full bg-primary' />
+										<div className='absolute bottom-0 w-10 h-1 rounded-full bg-primary' />
 									)}
 								</div>
 							</div>
@@ -231,4 +231,5 @@ const ProfilePage = () => {
 		</>
 	);
 };
+
 export default ProfilePage;
