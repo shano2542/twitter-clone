@@ -29,7 +29,8 @@ app.use(cookieParser());
 const PORT = process.env.PORT || 5000;
 
 
-app.use(express.json()); // to parse req.body for my own ease like protocol between client and server
+// limit shouldn't be high to prevent DoS attack
+app.use(express.json({limit: "5mb"})); // to parse req.body for my own ease like protocol between client and server
 
 app.use(express.urlencoded({ extended: true }));  //to parse data(urlencoded)
 
